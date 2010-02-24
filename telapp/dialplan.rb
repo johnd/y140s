@@ -8,27 +8,38 @@ adhearsion {
   
   def save_menu
     menu "#{SOUNDS_DIR}/verification",
-    :timeout => 8.seconds, :tries => 3 do |link|
-      link.on_save 1
-      link.on_retry 2
+      :timeout => 8.seconds, :tries => 3 do |link|
+        link.on_retry 2
+        link.on_save 1
+
+        link.on_invalid { play 'invalid' }
+
+        link.on_premature_timeout do |str|
+          play 'sorry'
+        end
+
+        link.on_failure do
+          play 'goodbye'
+          hangup
+        end
+      end
     end
-  end
   
   play "#{SOUNDS_DIR}/intro"
   record_message
 }
 
-def on_save
+on_save do
   require 'rubygems'
-  require 'delayed_job'
-  require 'save_message.rb'
-  Delayed::Job.enqueue(SaveMessage.new(@filename,uniqueid))
-  play "#{SOUNDS_DIR}/posting"
+  require 'beanstalk-client'
+  beanstalk = Beanstalk::Pool.new(['127.0.0.1:11300'])
+  beanstalk.yput([@filename,uniqueid])
+  play "#{SOUNDS_DIR}/posting"  
   play "#{SOUNDS_DIR}/outro"
   
   hangup
 end
 
-def on_retry
+on_retry do
   record_message
 end

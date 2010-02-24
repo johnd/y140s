@@ -54,9 +54,9 @@ SOUNDS_DIR = "#{APP_ROOT}/../assets/audio/"
 require 'rubygems'
 require 'yaml'
 
-config_file = APP_ROOT + "telapp/config/config.yml"
+config_file = APP_ROOT + "/config/config.yml"
 
-APP_CONFIG = YAML.load(File.read(config_file)) if File.exists? config_file
+APP_CONFIG = YAML.load(File.read(config_file))
 
 
 Adhearsion::Initializer.start_from_init_file(__FILE__, File.dirname(__FILE__) + "/..")
