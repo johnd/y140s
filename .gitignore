@@ -1,0 +1,11 @@
+.DS_Store
+db/*.sqlite3
+doc/api
+doc/app
+log/*.log
+tmp/**/*
+config/database.yml
+public/tmp/*
+coverage/*
+tmp/restart.txt
+

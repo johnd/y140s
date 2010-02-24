@@ -1,0 +1,11 @@
+John Daniels 2010-02-24
+
+Should be a really simple call flow for this app:
+
+1: Intro: "Welcome to your 140 seconds. You can record a message here which will post to twitter dot com slash y 140 s. For more details, go to y 140 s dot com. After you record your message you'll get a chance to listen to it and decide if you want it to post or not."
+2: Record: "After the beep you can record for up to 140 seconds, or until you press the hash key."
+3: Verification: "Thanks for the message. You said [play back] - did you like it? Press one to post it to Twitter, or two to try again. If you want to abandon the whole thing, just hang up and we'll forget you said anything."
+ - One : go to step 4
+ - Two: go to step 2
+4: Posting: "Okay, we like it too. You'll see it on twitter dot com slash y 140 s just as soon as we're done processing it."
+5: Outro: "For more details about your 140 seconds, including the terms of service, please see y 140 s dot com. Thanks, and goodbye!"
