@@ -26,9 +26,9 @@ class SaveMessage
     infilename = message.ybody.first + ".wav"
     outfilename = message.ybody.first + ".mp3"
     system "lame -SV9 #{infilename} #{outfilename}"
-    AWS::S3::S3Object.store("#{message.ybody.last.to_s}.mp3", open(outfilename), config['AWS_S3_BUCKET'], :access => :public_read)
-    awsbucket = AWS::S3::Bucket.find(config['AWS_S3_BUCKET'])
-    url = awsbucket["#{message.ybody.last.to_s}.mp3"].url :authenticated => false
+    filename = message.ybody.last.hash.abs.to_s(36)
+    AWS::S3::S3Object.store("#{filename}.mp3", open(outfilename), config['AWS_S3_BUCKET'], :access => :public_read)
+    url = "http://#{config['URL_DOMAIN']}/#{filename}.mp3"
 
     httpauth = Twitter::HTTPAuth.new(config['TWITTER_ACCOUNT'], config['TWITTER_PASSWORD'])
     client = Twitter::Base.new(httpauth)
