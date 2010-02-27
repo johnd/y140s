@@ -24,7 +24,7 @@ You need to make a whole new stanza like this:
 
 [Calls-From-SIPGate]
 type=user
-context=default
+context=adhearsion
 allow=all
 allow=ulaw
 allow=ilbc
@@ -39,6 +39,12 @@ canreinvite=no
 And in the [general] stanza you need to set 'register'. Search for 'OUTBOUND SIP REGISTRATIONS' for examples, but it'll be this sort of thing:
 
 register => username:password@sipgate.co.uk/extension
+
+You'll also need to change the default incoming call context at the start of the [general] stanza - it's literally the first thing there. Change it to 'adhearsion'.
+
+As an alternative to pretending to be a SIP client, some services will make inbound SIP connections directly to Asterisk - http://www.ukddi.com/ does this. As long as you've set the default incoming context to 'adhearsion', just tell it the extension you want it to call (in this example 666) and it'll work nicely. This is a much simpler set-up - the only change to make in sip.conf is the default context for incoming calls.
+
+Earlier tests used SIPGate/Gizmo5 and registering as a SIP client, but y140s production uses ukddi and a direct SIP connection.
 
 Permissions gotcha: be default on Ubuntu, asterisk is started with a umask of 007. This means that unless you run Adhearsion as the asterisk user, it won't be able to read any files asterisk saves, including audio recordings.
 
