@@ -23,3 +23,9 @@ task :gitignore do
     end
   end
 end
+
+desc "Pull a message off the queue for processing."
+task :savemessage do
+  require 'save_message.rb'
+  SaveMessage.process
+end
