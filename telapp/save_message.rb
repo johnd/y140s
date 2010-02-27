@@ -8,7 +8,7 @@ class SaveMessage
     require 'beanstalk-client'
     require 'yaml'
 
-    config_file = "config/config.yml"
+    config_file = "#{File.dirname(__FILE__)}/config/config.yml"
 
     config = YAML.load(File.read(config_file))
     

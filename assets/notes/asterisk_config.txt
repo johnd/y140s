@@ -1,0 +1,45 @@
+Adhearsion spawns a daemon which listens for calls from Asterisk using AGI. It doesn't actually handle the messy business of talking to SIP clients itself, in the same way as mongrel in a Rails deployment is usually hiding behind Apache.
+
+So you need to install Asterisk and configure it a bit to make your app work. Thankfully you don't need to configure it too much.
+
+In Ubuntu Asterisk's configuration files live in /etc/asterisk, there's over 60 of them, but only a couple need anything changed.
+
+In 'extensions.conf' you need to create an Asterisk context that's going to pass the call over AGI to Adhearsion.
+
+Here's a simple example:
+
+[adhearsion]
+exten => 666,1,AGI(agi://127.0.0.1)
+exten => 666,n,Hangup
+
+This takes any call to extension 666 and punts it to Adhearsion, then hangs up if Adhearsion happens to return the call control back. (Normally you'll want to tell Adhearsion to explicitly hang up in your app, since you'll be handling the whole call flow there.)
+
+Somewhere in the mess of extensions.conf there'll be a 'default' context. It'll be including the 'demo' context by default - in this example you'd want to change that to 'adhearsion'.
+
+Context names are important - they're used when passing calls in from SIP accounts and the context that AGI call is in is used to determine the name of the block that's called in your dialplan.rb file.
+
+You're probably going to want to actually take inbound calls. The simplest way to do this is to register with another SIP server with your phone number provider. This is done in sip.conf, in two parts.
+
+You need to make a whole new stanza like this:
+
+[Calls-From-SIPGate]
+type=user
+context=default
+allow=all
+allow=ulaw
+allow=ilbc
+allow=gsm
+dtmfmode=rfc2833
+host=sipgate.co.uk
+insecure=very
+username=xxxxxxx
+secret=xxxxxxx
+canreinvite=no
+
+And in the [general] stanza you need to set 'register'. Search for 'OUTBOUND SIP REGISTRATIONS' for examples, but it'll be this sort of thing:
+
+register => username:password@sipgate.co.uk/extension
+
+Permissions gotcha: be default on Ubuntu, asterisk is started with a umask of 007. This means that unless you run Adhearsion as the asterisk user, it won't be able to read any files asterisk saves, including audio recordings.
+
+My filthy workaround is to just edit /etc/init.d/asterisk to change the umask line to something more palatable, like 002.

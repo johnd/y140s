@@ -7,7 +7,7 @@ adhearsion {
   end
   
   def save_menu
-    menu "#{SOUNDS_DIR}/verification",
+    menu "#{SOUNDS_DIR}/verification1",@filename,"#{SOUNDS_DIR}/verification2",
       :timeout => 8.seconds, :tries => 3 do |link|
         link.on_retry 2
         link.on_save 1
@@ -24,7 +24,7 @@ adhearsion {
         end
       end
     end
-  
+  sleep 1 # Otherwise it'll cut off the start of the first audio file played.
   play "#{SOUNDS_DIR}/intro"
   record_message
 }
