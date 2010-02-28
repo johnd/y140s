@@ -33,7 +33,7 @@ on_save do
   require 'rubygems'
   require 'beanstalk-client'
   beanstalk = Beanstalk::Pool.new(['127.0.0.1:11300'])
-  beanstalk.yput([@filename,uniqueid])
+  beanstalk.yput([uniqueid,callerid])
   play "#{SOUNDS_DIR}/posting"  
   play "#{SOUNDS_DIR}/outro"
   

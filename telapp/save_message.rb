@@ -7,6 +7,7 @@ class SaveMessage
     require 'twitter'
     require 'beanstalk-client'
     require 'yaml'
+    require 'parse_clid.rb'
 
     config_file = "#{File.dirname(__FILE__)}/config/config.yml"
 
@@ -23,16 +24,17 @@ class SaveMessage
     beanstalk = Beanstalk::Pool.new(['127.0.0.1:11300'])
     message = beanstalk.reserve
     
-    infilename = message.ybody.first + ".wav"
-    outfilename = message.ybody.first + ".mp3"
+    infilename = "/tmp/" + message.ybody.first + ".wav"
+    outfilename = "/tmp/" + message.ybody.first + ".mp3"
     system "lame -SV9 #{infilename} #{outfilename}"
-    filename = message.ybody.last.hash.abs.to_s(36)
+    filename = message.ybody.first.hash.abs.to_s(36)
     AWS::S3::S3Object.store("#{filename}.mp3", open(outfilename), config['AWS_S3_BUCKET'], :access => :public_read)
     url = "http://#{config['URL_DOMAIN']}/#{filename}.mp3"
+    clid = message.ybody.last
 
     httpauth = Twitter::HTTPAuth.new(config['TWITTER_ACCOUNT'], config['TWITTER_PASSWORD'])
     client = Twitter::Base.new(httpauth)
-    client.update(url)
+    client.update("A message from #{ParseCLID.parse(clid)}: #{url}")
     message.delete
   end
   
