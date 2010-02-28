@@ -7,5 +7,5 @@ Should be a really simple call flow for this app:
 3: Verification: "Thanks for the message. You said [play back] - did you like it? Press one to post it to Twitter, or two to try again. If you want to abandon the whole thing, just hang up and we'll forget you said anything."
  - One : go to step 4
  - Two: go to step 2
-4: Posting: "Okay, we like it too. You'll see it on twitter dot com slash y 140 s just as soon as we're done processing it."
-5: Outro: "For more details about your 140 seconds, including the terms of service, please see y 140 s dot com. Thanks, and goodbye!"
+4: Posting: "Okay, we like it too. You'll see it on twitter dot com slash y 140 s in the next few minutes."
+5: Outro: "For more information about your 140 seconds, including the terms of service, please see y 140 s dot com. Thanks, and goodbye!"
