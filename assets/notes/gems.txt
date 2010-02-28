@@ -1,0 +1,10 @@
+TODO: use bundler.
+
+In the meantime, deployment needs:
+
+adhearsion
+aws-s3
+twitter
+beanstalkd-client
+sinatra
+passenger

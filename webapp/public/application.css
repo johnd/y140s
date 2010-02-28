@@ -1,0 +1,60 @@
+body {
+	background-color: white;
+}
+
+#wrapper {
+	display: block;
+	width: 450px;
+	margin: 2px auto;
+	padding: 2px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: black;
+	border: solid 2px black;
+	background-color: white;
+}
+
+#summary {
+  font-size: 21px;
+  text-align: center;
+}
+
+.highlight {
+  background-color: yellow;
+}
+
+h1 {
+	text-align: center;
+}
+
+#footer {
+	text-align: center;
+}
+
+#footer {
+	font-size: 12px;
+	color: black;
+}
+
+#footer a, #footer a:visited {
+	text-decoration: underline;
+}
+
+#footer a:hover {
+	text-decoration: none;
+}
+
+a, a:visited {
+	color: black;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+.error {
+	font-size: 20px;
+	color: red;
+}
