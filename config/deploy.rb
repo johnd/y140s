@@ -25,15 +25,15 @@ set :ssh_options, { :forward_agent => true }
 role :app, domain
 role :web, domain
 
+deploy.task :symlinks do
+  run "ln -nfs #{shared_path}/config/config.yml #{release_path}/telapp/config/config.yml"
+end
+
 deploy.task :restart do
   # Restart Passenger
   run "touch #{current_path}/webapp/tmp/restart.txt"
   # Restart Adhearsion
   run "ahnctl restart #{current_path}/telapp"
-end
-
-deploy.task :symlinks do
-  run "ln -nfs #{shared_path}/config/config.yml #{release_path}/telapp/config/config.yml"
 end
 
 

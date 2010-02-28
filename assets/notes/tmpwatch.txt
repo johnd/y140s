@@ -1,0 +1,7 @@
+This code litters /tmp with audio files. I considered cleaning these up in save_message.rb, but decided to just use a normal *nix utility to handle it.
+
+I was planning to use tmpwatch, but apparently it's not available in Ubuntu 8.04. It has tmpreaper instead, which appears to be much the same thing.
+
+The ubuntu package automatically sets up a cron.daily entry, so all I had to do was change the default seven days to one day in /etc/tmpreaper.conf
+
+Even if you don't change the default, you REALLY need to at least install tmpreaper or tmpwatch or something else similar, otherwise you'll fill your drive with wav and mp3 files in /tmp and have an embarrassing down time.
