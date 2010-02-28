@@ -22,7 +22,7 @@ class SaveMessage
     require 'rubygems'
     require 'beanstalk-client'
     beanstalk = Beanstalk::Pool.new(['127.0.0.1:11300'])
-    message = beanstalk.reserve
+    message = beanstalk.reserve(10)
     
     infilename = "/tmp/" + message.ybody.first + ".wav"
     outfilename = "/tmp/" + message.ybody.first + ".mp3"
