@@ -6,6 +6,7 @@ class ParseCLID
       when /^\+44(2\d).*/ then "0#{$1}"
       when /^\+44(1\d\d\d).*/ then "0#{$1}"
       when /^\+447.*/ then "someone's mobile phone"
+      else "somewhere far away"
       end
     else
       "a strange and mysterious place"
