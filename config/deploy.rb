@@ -33,7 +33,7 @@ deploy.task :restart do
   # Restart Passenger
   run "touch #{current_path}/webapp/tmp/restart.txt"
   # Restart Adhearsion
-  run "ahnctl restart #{current_path}/telapp"
+  run "ahnctl restart #{current_path}/telapp --pid-file=#{current_path}/log/adhearsion.pid"
 end
 
 
